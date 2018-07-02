@@ -63,7 +63,7 @@ fun provideDesignerNewsLoginRemoteDataSource(context: Context): DesignerNewsLogi
 }
 
 private fun provideDesignerNewsAuthTokenLocalDataSource(
-        context: Context
+    context: Context
 ): DesignerNewsAuthTokenLocalDataSource {
     return DesignerNewsAuthTokenLocalDataSource.getInstance(
             provideSharedPreferences(
@@ -77,7 +77,7 @@ fun provideDesignerNewsService(context: Context): DesignerNewsService {
 }
 
 private fun provideDesignerNewsService(
-        authTokenDataSource: DesignerNewsAuthTokenLocalDataSource
+    authTokenDataSource: DesignerNewsAuthTokenLocalDataSource
 ): DesignerNewsService {
     val client = OkHttpClient.Builder()
             .addInterceptor(
@@ -104,8 +104,8 @@ fun provideDesignerNewsRepository(service: DesignerNewsService): io.plaidapp.bas
 }
 
 fun provideDesignerNewsCommentsRepository(
-        context: Context,
-        contextProvider: CoroutinesContextProvider
+    context: Context,
+    contextProvider: CoroutinesContextProvider
 ): DesignerNewsCommentsRepository {
     return provideDesignerNewsCommentsRepository(
             provideDesignerNewsCommentsRemoteDataSource(provideDesignerNewsService(context)),
@@ -113,8 +113,8 @@ fun provideDesignerNewsCommentsRepository(
 }
 
 fun provideDesignerNewsCommentsRepository(
-        remoteDataSource: DesignerNewsCommentsRemoteDataSource,
-        contextProvider: CoroutinesContextProvider
+    remoteDataSource: DesignerNewsCommentsRemoteDataSource,
+    contextProvider: CoroutinesContextProvider
 ): DesignerNewsCommentsRepository {
     return DesignerNewsCommentsRepository.getInstance(remoteDataSource, contextProvider)
 }
