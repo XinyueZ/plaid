@@ -70,6 +70,8 @@ import java.util.Date;
 import java.util.List;
 
 import in.uncod.android.bypass.Bypass;
+import io.plaidapp.base.data.api.Result;
+import io.plaidapp.base.data.api.ResultKt;
 import io.plaidapp.base.designernews.DesignerNewsPrefs;
 import io.plaidapp.base.designernews.Injection;
 import io.plaidapp.base.designernews.data.api.comments.DesignerNewsCommentsRepository;
@@ -142,10 +144,15 @@ public class DesignerNewsStory extends Activity {
         story = getIntent().getParcelableExtra(Activities.DesignerNews.Story.EXTRA_STORY);
 
         commentsRepository.getComments(story.links.getComments(),
-                comments -> {
-                    setupComments((List<Comment>) comments);
+                result -> {
+                    if (ResultKt.isSuccessful(result)) {
+                        Result.Success<List<Comment>> success =
+                                (Result.Success<List<Comment>>) result;
+                        List<Comment> data = success.getData();
+                        setupComments(data);
+                    }
                     return Unit.INSTANCE;
-                }, error -> Unit.INSTANCE);
+                });
 
         fab.setOnClickListener(fabClick);
         chromeFader = new ElasticDragDismissFrameLayout.SystemChromeFader(this);
