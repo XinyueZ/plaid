@@ -26,6 +26,7 @@ import io.plaidapp.base.data.CoroutinesContextProvider
 import io.plaidapp.base.data.api.DenvelopingConverter
 import io.plaidapp.base.designernews.data.api.ClientAuthInterceptor
 import io.plaidapp.base.designernews.data.api.DesignerNewsAuthTokenLocalDataSource
+import io.plaidapp.base.designernews.data.api.DesignerNewsRepository
 import io.plaidapp.base.designernews.data.api.DesignerNewsService
 import io.plaidapp.base.designernews.data.api.comments.DesignerNewsCommentsRemoteDataSource
 import io.plaidapp.base.designernews.data.api.comments.DesignerNewsCommentsRepository
@@ -33,6 +34,7 @@ import io.plaidapp.base.designernews.login.data.DesignerNewsLoginLocalDataSource
 import io.plaidapp.base.designernews.login.data.DesignerNewsLoginRemoteDataSource
 import io.plaidapp.base.designernews.login.data.DesignerNewsLoginRepository
 import io.plaidapp.base.loggingInterceptor
+import io.plaidapp.base.provideCoroutinesContextProvider
 import io.plaidapp.base.provideSharedPreferences
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -100,16 +102,13 @@ fun provideDesignerNewsRepository(context: Context): io.plaidapp.base.designerne
 }
 
 fun provideDesignerNewsRepository(service: DesignerNewsService): io.plaidapp.base.designernews.data.api.DesignerNewsRepository {
-    return io.plaidapp.base.designernews.data.api.DesignerNewsRepository.getInstance(service)
+    return DesignerNewsRepository.getInstance(service)
 }
 
-fun provideDesignerNewsCommentsRepository(
-    context: Context,
-    contextProvider: CoroutinesContextProvider
-): DesignerNewsCommentsRepository {
+fun provideDesignerNewsCommentsRepository(context: Context): DesignerNewsCommentsRepository {
     return provideDesignerNewsCommentsRepository(
             provideDesignerNewsCommentsRemoteDataSource(provideDesignerNewsService(context)),
-            contextProvider)
+            provideCoroutinesContextProvider())
 }
 
 fun provideDesignerNewsCommentsRepository(
