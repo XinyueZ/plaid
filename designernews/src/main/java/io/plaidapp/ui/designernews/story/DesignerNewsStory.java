@@ -88,7 +88,7 @@ import io.plaidapp.ui.designernews.DesignerNewsLogin;
 import io.plaidapp.ui.drawable.ThreadedCommentDrawable;
 import io.plaidapp.ui.transitions.MorphTransform;
 import io.plaidapp.core.ui.widget.CollapsingTitleLayout;
-import io.plaidapp.ui.widget.ElasticDragDismissFrameLayout;
+import io.plaidapp.core.ui.widget.ElasticDragDismissFrameLayout;
 import io.plaidapp.ui.widget.PinnedOffsetView;
 import retrofit2.Call;
 import retrofit2.Callback;
